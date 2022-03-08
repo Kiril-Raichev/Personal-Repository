@@ -1,0 +1,4 @@
+function result(params) {
+    
+}
+result()
