@@ -1,6 +1,7 @@
 # **Inventory Manager**
 ## **Objective**
 ### Your task is to implement a system that helps a store owner manage his inventory. New items can be added and filtered in the market. Here are the commands that the owner needs implement
+
 ### add {ITEM_NAME} {ITEM_PRICE} {ITEM_TYPE} – adds a new item to the system;
 * ### ITEM_NAME is a character sequence and has to be unique;
 * ### ITEM_PRICE is a positive floating-point number;
@@ -8,7 +9,7 @@
 	* ### If the item is added successfully, print: Ok: Item {ITEM_NAME} added successfully;
 	* ###	If an item with the given name already exists, print: Error: Item {ITEM_NAME} already exists;
 ### filter by type {ITEM_TYPE} – lists the first 10 items (sorted) that have type equal to ITEM_TYPE;
-	* ### If the given ITEM_TYPE does not exist, print: Error: Type {ITEM_TYPE} does not exist;
+* ### If the given ITEM_TYPE does not exist, print: Error: Type {ITEM_TYPE} does not exist;
 ### filter by price from {MIN_PRICE} to {MAX_PRICE} – lists the first 10 (sorted) items that have ITEM_PRICE in the given range, inclusive;
 ### filter by price from {MIN_PRICE} – lists the first 10 items (sorted) that have a greater ITEM_PRICE than the given, inclusive;
 ### filter by price to {MAX_PRICE} – lists the first 10 items (sorted) that have a smaller ITEM_PRICE that the given, inclusive;
