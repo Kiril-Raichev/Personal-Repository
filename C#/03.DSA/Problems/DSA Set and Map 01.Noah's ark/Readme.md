@@ -17,6 +17,7 @@
 
 ## See sample tests for examples
 ## **Sample tests**
+
 ### **Input**
 ### 5
 ### fish
@@ -24,7 +25,8 @@
 ### moose
 ### moose
 ### bald eagle
-### Output
+
+### **Output**
 ### bald eagle 1 No
 ### crocodile 1 No
 ### fish 1 No
