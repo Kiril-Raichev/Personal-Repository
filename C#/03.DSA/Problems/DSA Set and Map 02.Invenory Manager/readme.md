@@ -2,8 +2,8 @@
 ## **Objective**
 ### Your task is to implement a system that helps a store owner manage his inventory. New items can be added and filtered in the market. Here are the commands that the owner needs implement
 ### add {ITEM_NAME} {ITEM_PRICE} {ITEM_TYPE} – adds a new item to the system;
-### * ITEM_NAME is a character sequence and has to be unique;
-### * ITEM_PRICE is a positive floating-point number;
+* ###  ITEM_NAME is a character sequence and has to be unique;
+###  ITEM_PRICE is a positive floating-point number;
 ### * ITEM_TYPE is a character sequence and does not have to be unique;
 ###		* If the item is added successfully, print: Ok: Item {ITEM_NAME} added successfully;
 ###		* If an item with the given name already exists, print: Error: Item {ITEM_NAME} already exists;
