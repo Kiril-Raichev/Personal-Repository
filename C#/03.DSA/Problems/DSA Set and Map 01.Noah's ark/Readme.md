@@ -14,20 +14,3 @@
 ### Print to the standard output
 
 ### On separate lines print how many of each animal have boarded the ark, and weather there is an even amount of them.
-
-## See sample tests for examples
-## **Sample tests**
-
-### **Input**
-### 5
-### fish
-### crocodile
-### moose
-### moose
-### bald eagle
-
-### **Output**
-### bald eagle 1 No
-### crocodile 1 No
-### fish 1 No
-### moose 2 Yes

@@ -1,0 +1,9 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net5.0</TargetFramework>
+    <RootNamespace>DSA_Set_and_Map_04.Gotta_catch__em_all</RootNamespace>
+  </PropertyGroup>
+
+</Project>
