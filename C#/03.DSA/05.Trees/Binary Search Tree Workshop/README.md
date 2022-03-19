@@ -1,5 +1,3 @@
-<img src="https://webassets.telerikacademy.com/images/default-source/logos/telerik-academy.svg)" alt="logo" width="300px" style="margin-top: 20px;"/>
-
 # DSA Workshop (Binary Search Tree)
 
 A binary search tree (BST), is a binary tree where for each node the left sub-tree contains only nodes with values less than the parent node; the right sub-tree contains only nodes with values greater than the parent node. 
@@ -42,13 +40,6 @@ Your task is to implement a binary search tree (**not balanced**), using the tem
 1. Implement all methods from the *IBinarySearchTree* interface.
 2. Implement 2 constructors.
 3. All tests should pass.
-
-## Practice
-
-- [Minimum Absolute Difference in BST](https://leetcode.com/problems/minimum-absolute-difference-in-bst/)  
-- [Longest Univalue Path](https://leetcode.com/problems/longest-univalue-path/description/)  
-- [Binary Tree Paths](https://leetcode.com/problems/binary-tree-paths/description/)  
-- [More](https://leetcode.com/problemset/all/?search=bst)
 
 ### Advanced task
 
