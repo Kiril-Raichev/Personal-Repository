@@ -1,0 +1,40 @@
+﻿@model UserDto
+
+<form asp-controller= "Users" asp-action="@this.ViewData["Action"]" method = "post">
+	<div>
+		<label asp-for="FirstName" class="form-label"></label>
+		<br/>
+		<input asp-for="FirstName" class="form-input" />
+		<br/>
+		<span asp-validation-for="FirstName" class = "form-error"></span>
+	</div>
+
+	<div>
+		<label asp-for="LastName" class="form-label"></label>
+		<br/>
+		<input asp-for="LastName" class="form-input" />
+		<br/>
+		<span asp-validation-for="LastName" class="form-error"></span>
+	</div>
+
+	<div>
+		<label asp-for="Password" class="form-label"></label>
+		<br/>
+		<input asp-for="Password" class="form-input" />
+		<br/>
+		<span asp-validation-for="Password" class="form-error"></span>
+	</div>
+
+	<div>
+		<label asp-for="Email" class="form-label"></label>
+		<br/>
+		<input asp-for="Email" class="form-input" />
+		<br/>
+		<span asp-validation-for="Email" class="form-errot"></span>
+	</div>
+
+	<div>
+		<input type="submit" value = "@this.ViewData["SubmitButton"]" class = "btn-primary" />
+	</div>
+
+	</form>

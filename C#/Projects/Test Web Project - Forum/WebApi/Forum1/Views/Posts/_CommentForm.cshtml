@@ -1,0 +1,26 @@
+﻿@model CommentDto
+
+<form asp-controller="Posts" asp-action="@this.ViewData["Action"]" method="post">
+	<div>
+		<label asp-for="Content" class="form-label"></label>
+		<br />
+		<input asp-for="Content" type="text" class="form-input" />
+		<br />
+		<span asp-validation-for="Content" class="form-error"></span>
+	</div>
+	<div>
+	<label asp-for="PostTitle" class="form-label"></label>
+		<br />
+		<input asp-for="PostTitle" type="text" class="form-input" />
+		<br />
+		<span asp-validation-for="PostTitle" class="form-error"></span>
+	</div>
+	
+	
+	<!-- Submit -->
+	<div>
+		<input type="submit" value="@this.ViewData["SubmitButton"]" class="btn-primary" />
+	</div>
+</form>
+
+

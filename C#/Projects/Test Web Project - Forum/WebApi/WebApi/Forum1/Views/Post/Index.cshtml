@@ -1,0 +1,52 @@
+﻿@using Forum1.Models;   
+@model IQueryable<Post>
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <title>Forum - Forum</title>
+    <link rel="stylesheet" href="~/css/site.css" />
+</head>
+<body>
+    <header>
+        <div>
+            <h3>
+                <a href="/home/index" class="nav">Home</a> | <a href="/post/index" class="nav">Posts</a> | <a href="/home/about" class="nav">About</a>
+            </h3>
+        </div>
+    </header>
+    <div class="body-content">
+        <h2>Posts</h2>
+
+        <div class="table">
+            <div class="header">
+                <div class="header-cell">User</div>
+                <div class="header-cell">Title</div>
+                <div class="header-cell">Content</div>
+                <div class="header-cell">Coments</div>
+                <div class="header-cell">Actions</div>
+            </div>
+
+            @{
+                foreach (var post in this.Model)
+                {
+                    <div class="row">
+                        <div class="cell">@post.User</div>
+                        <div class="cell">@post.Title</div>
+                        <div class="cell">@post.Content</div>
+                        <div class="cell">@post.Comments</div>
+                        
+                    </div>
+                }
+             }
+        </div>
+    </div>
+
+    <footer>
+        <small> Copyright @DateTime.Now.Year, Forum</small>
+    </footer>
+
+</body>
+</html>

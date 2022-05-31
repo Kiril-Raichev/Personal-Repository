@@ -1,0 +1,32 @@
+﻿@model PostDto
+
+<form asp-controller="Posts" asp-action="@this.ViewData["Action"]" method="post">
+
+	<div>
+		<label asp-for="Title" class="form-label"></label>
+		<br />
+		<input asp-for="Title" type="text" class="form-input" />
+		<br />
+		<span asp-validation-for="Title" class="form-error"></span>
+	</div>
+	<div class="mb-3">
+		<label asp-for="Content" class="form-label"></label>
+		<br />
+		<input asp-for="Content" type="text" class="form-input"  />
+		<br />
+		<span asp-validation-for="Content" class="form-error"></span>
+	</div>
+	
+	<!-- Submit -->
+	<div>
+		<input type="submit" value="@this.ViewData["SubmitButton"]" class="btn-primary" />
+	</div>
+</form>
+
+
+
+
+
+
+
+

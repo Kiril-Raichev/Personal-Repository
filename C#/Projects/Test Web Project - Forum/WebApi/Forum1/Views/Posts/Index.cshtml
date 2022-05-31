@@ -1,0 +1,75 @@
+﻿@{
+	this.ViewData["Title"] = "Posts";
+}
+
+@model IEnumerable<PostResponseDto>
+
+	<h3>Posts</h3>
+	<div>
+	<a asp-controller="Posts" asp-action="Create" class="btn btn-primary" >
+	<span class="new-post">+ New post</span>
+	</a>
+	</div>
+
+
+		<table class="table">
+			<thead class="thead-light">
+				<tr>
+					<th scope="col" >Post Title</th>
+					<th scope="col" >Post Content</th>
+					<th scope="col" >Post Comment</th>
+				</tr>
+			</thead>
+
+ <tbody>
+
+			@{
+				foreach(var post in this.Model)
+				{	
+					
+				<tr>
+					<th scope="row" ><img src="~/Images/forum.png" class="post-image">@post.Title
+					<br/> 
+					<br/> 
+					by @post.Username </th>
+					<td>
+					<img src="~/Images/post_content.png" class="post-image">
+					@post.Content
+					<br/>
+					<br/>
+					<a asp-controller="Posts" asp-action="Edit" asp-route-id="@post.Title">
+					<img src="~/Images/edit.png">
+					Edit
+					</a> 
+					</td>
+																																																																																																																																																		
+					@{
+						foreach (var comment in @post.CommentsDto)
+						{
+							<td>@comment</td>
+						}
+					}
+					@{
+						foreach(var reaction in @post.ReactionsDto)
+						{
+							<td>@reaction</td>
+						}
+					}
+					<td>
+						<a asp-controller="Posts" asp-action="Comment" asp-route-id="@post.Title"  id="Comment">
+						<img src="~/Images/comment.png" class="link-image">
+						Comment
+						</a> 
+						<br />
+						<br />
+						<a asp-controller="Posts" asp-action="Reaction" asp-route-id="@post.Title" id="Reaction">
+						<img src="~/Images/reaction.png" class="link-image">
+						Reaction</a>
+					</td>
+				</tr>
+						
+
+				}
+			}
+</tbody>
+</table>
