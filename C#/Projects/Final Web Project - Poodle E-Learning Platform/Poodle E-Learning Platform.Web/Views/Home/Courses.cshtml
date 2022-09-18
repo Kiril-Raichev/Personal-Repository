@@ -1,0 +1,146 @@
+@using Poodle_E_Learning_Platform.Services;
+@using Poodle_E_Learning_Platform.Models;
+@inject ICourseService courseService;
+@inject IUsersService usersService;
+@inject Poodle_E_Learning_Platform.Helpers.AuthorizationHelper authorizationHelper
+@inject Poodle_E_Learning_Platform.Repositories.IUsersRepository userRepository
+@inject Poodle_E_Learning_Platform.Repositories.IUserCourseRepository userCourseRepository
+
+@{
+    var courses = courseService.GetAll();
+    var loggedUser = this.userRepository.GetByEmail(authorizationHelper.CurrentUser);
+    var duration = "";
+
+}
+
+<!-- Courses Start -->
+@if (loggedUser != null && loggedUser.Role == UserRole.Teacher)
+{
+    var createdBy = $"{loggedUser.FirstName} {loggedUser.LastName}";
+    <div style="display: flex; justify-content: flex-end; margin-top: 50px; margin-right: 120px">
+        <a asp-action="Create" asp-controller="Courses" asp-route-CreatedBy="@createdBy" style="color: white" class="btn btn-success btn-outline-dark py-md-3 px-md-5 align-content-end animated slideInRight">Create Course</a>
+    </div>
+}
+<div class="container-xxl py-5">
+    <div class="container">
+        <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
+            <h6 class="section-title bg-white text-center text-primary px-3">Courses</h6>
+            <h1 class="mb-5">Our Course Library</h1>
+        </div>
+        <div class="row g-4 justify-content-center">
+
+            @foreach (var course in courses)
+            {
+                if (loggedUser != null)
+                {
+                    var userCourse = this.userCourseRepository.GetByBothIds(course.Id, loggedUser.Id);
+                    <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                        <div class="course-item bg-light">
+                            <div class="position-relative overflow-hidden">
+                                <img class="img-thImbnail" style="height: 260px;width: 450px" src=@Url.Content(@course.ImgSource) alt="">
+                                <div class="w-100 d-flex justify-content-center position-absolute bottom-0 start-0 mb-4">
+                                    @if (loggedUser != null && loggedUser.Role == UserRole.Student && course.Visibility == CourseVisibility.Public)
+                                    {
+                                        if (userCourse != null)
+                                        {
+                                            <a href="../courses/details/@course.Id" class="flex-shrink-0 btn btn-primary px-3" style="width:120px; border-radius: 50px 50px 50px 50px;">Enrolled</a>
+                                        }
+                                        else
+                                        {
+                                            <a href="../courses/details/@course.Id" class="flex-shrink-0 btn btn-primary px-3" style="width:120px; border-radius: 50px 50px 50px 50px;">Join Now</a>
+                                        }
+                                    }@if (loggedUser != null && loggedUser.Role == UserRole.Student && course.Visibility == CourseVisibility.Private)
+                                    {
+                                        if (userCourse != null)
+                                        {
+                                            <a href="../courses/details/@course.Id" class="flex-shrink-0 btn btn-primary px-3" style="width:120px; border-radius: 50px 50px 50px 50px;">Enrolled</a>
+                                        }
+                                        else
+                                        {
+                                            <a  class="flex-shrink-0 btn btn-sm btn-danger px-3" style="width:120px; border-radius: 50px 50px 50px 50px;">No Access</a>
+                                        }
+                                    }
+                                    @if (loggedUser != null && loggedUser.Role == UserRole.Teacher)
+                                    {
+                                        <a href="../courses/details/@course.Id" class="flex-shrink-0 btn btn-sm btn-primary px-3 border-end" style="border-radius: 30px 0 0 30px;">Read More</a>
+                                        <a asp-action="Delete" asp-controller="Courses" asp-route-id="@course.Id" class="flex-shrink-0 btn btn-sm btn-danger px-3" style="border-radius: 0 30px 30px 0;">Delete</a>
+                                    }
+
+                                </div>
+                            </div>
+                            <div class="text-center p-4 pb-0">
+                                <h5 class="mb-4"> @course.Title</h5>
+                            </div>
+                            <div class="d-flex border-top">
+                                <small class="flex-fill text-center border-end py-2"><i class="bi bi-person-circle text-primary me-2"></i>Head Teacher in charge: @course.CreatedBy</small>
+                            </div>
+                            <div class="d-flex border-top">
+                                @if (course.Visibility == Poodle_E_Learning_Platform.Models.CourseVisibility.Public)
+                                {
+                                    <small class="flex-fill text-center border-end py-2"><i class="fa fa-eye text-primary me-2"></i>@Url.Content(course.Visibility.ToString())</small>
+                                }
+                                else
+                                {
+                                    <small class="flex-fill text-center border-end py-2"><i class="fa fa-eye-slash text-primary me-2"></i>@Url.Content(course.Visibility.ToString())</small>
+                                }
+                                @if (course.Duration > 60)
+                                {
+                                    duration = $"{course.Duration / 60} Hrs {course.Duration % 60}";
+                                }
+                                else
+                                {
+                                    duration = $"{course.Duration} Min";
+                                }
+                                <small class="flex-fill text-center border-end py-2"><i class="fa fa-clock text-primary me-2"></i>@duration</small>
+                                <small class="flex-fill text-center py-2"><i class="bi bi-people-fill text-primary me-2"></i>@course.Users.Count Students</small>
+                            </div>
+                        </div>
+
+                    </div>
+                }
+                else
+                {
+                    <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                        <div class="course-item bg-light">
+                            <div class="position-relative overflow-hidden">
+                                <img class="img-thImbnail" style="height: 260px;width: 450px" src=@Url.Content(@course.ImgSource) alt="">
+                                <div class="w-100 d-flex justify-content-center position-absolute bottom-0 start-0 mb-4">
+
+                                    <a href="@Url.Action("Register","Authentication")" class="flex-shrink-0 btn btn-primary px-3" style="width:120px; border-radius: 50px 50px 50px 50px;">Join Now</a>
+                                </div>
+                            </div>
+                            <div class="text-center p-4 pb-0">
+                                <h5 class="mb-4"> @course.Title</h5>
+                            </div>
+                            <div class="d-flex border-top">
+                                <small class="flex-fill text-center border-end py-2"><i class="bi bi-person-circle text-primary me-2"></i>Head Teacher in charge: @course.CreatedBy</small>
+                            </div>
+                            <div class="d-flex border-top">
+                                @if (course.Visibility == Poodle_E_Learning_Platform.Models.CourseVisibility.Public)
+                                {
+                                    <small class="flex-fill text-center border-end py-2"><i class="fa fa text-primary me-2"></i>@Url.Content(course.Visibility.ToString())</small>
+                                }
+                                else
+                                {
+                                    <small class="flex-fill text-center border-end py-2"><i class="fa fa-eye-slash text-primary me-2"></i>@Url.Content(course.Visibility.ToString())</small>
+                                }
+                                @if (course.Duration > 60)
+                                {
+                                    duration = $"{course.Duration / 60} Hrs {course.Duration % 60}";
+                                }
+                                else
+                                {
+                                    duration = $"{course.Duration} Min";
+                                }
+                                <small class="flex-fill text-center border-end py-2"><i class="fa fa-clock text-primary me-2"></i>@duration</small>
+                                <small class="flex-fill text-center py-2"><i class="bi bi-people-fill text-primary me-2"></i>@course.Users.Count Students</small>
+                            </div>
+                        </div>
+
+                    </div>
+                }
+            }
+        </div>
+    </div>
+</div>
+<!-- Courses End -->

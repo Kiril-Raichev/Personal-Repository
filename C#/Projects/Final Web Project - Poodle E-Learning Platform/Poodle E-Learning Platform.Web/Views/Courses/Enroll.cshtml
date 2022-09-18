@@ -1,0 +1,9 @@
+﻿@model Poodle_E_Learning_Platform.Web.Models.Enroll
+Enter Student's Email Address:
+@using (Html.BeginForm("Enroll", "Courses", FormMethod.Post))
+{
+    @Html.TextBoxFor(model => model.Email)
+    @Html.ValidationMessageFor(model => model.Email)
+    <input asp-for="CourseId" hidden />
+    <button type="submit">Enroll</button>
+}

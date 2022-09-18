@@ -1,0 +1,129 @@
+﻿@inject Poodle_E_Learning_Platform.Helpers.AuthorizationHelper authorizationHelper
+@inject Poodle_E_Learning_Platform.Repositories.IUsersRepository usersRepository
+@inject Poodle_E_Learning_Platform.Repositories.ICourseRepository courseRepository
+@inject Poodle_E_Learning_Platform.Repositories.IUserCourseRepository userCourseRepository
+@inject Poodle_E_Learning_Platform.Services.ICourseService courseService
+
+@using Poodle_E_Learning_Platform.Models;
+
+@{
+
+    var loggedUser = usersRepository.GetByEmail(this.authorizationHelper.CurrentUser);
+    var currentCourse = courseRepository.GetById(this.Model.Id);
+    UserCourse userCourse = null;
+    if (loggedUser != null)
+    {
+        userCourse = this.userCourseRepository.GetByBothIds(currentCourse.Id, loggedUser.Id);
+    }
+    var courseId = currentCourse.Id;
+
+    List<Section> sectionList = new List<Section>();
+    foreach (var section in currentCourse.Sections)
+    {
+        sectionList.Add(section);
+    }
+    sectionList = sectionList.OrderBy(x => x.Order).ThenByDescending(x => x.Id).ToList();
+}
+
+<!-- Details Start -->
+@*No Logged User Start*@
+@if (loggedUser == null)
+{
+    <partial name="../Shared/Error.cshtml" />
+}
+else
+{
+    @*Logged Teacher Start*@
+    if (loggedUser.Role == UserRole.Teacher)
+    {
+        <br />
+
+
+
+        <div class="text-center py-12 px-6 mt-12">
+            <h6 class="section-title bg-white text-center text-primary px-3">Title</h6>
+            <h1 class="font-display font-bold text-5xl mb-6">@currentCourse.Title</h1>
+            <h6 class="section-title bg-white text-center text-primary px-3">Description</h6>
+            <p style="font:xx-large" class="max-w-lg mx-auto">@currentCourse.Description</p>
+            <h6 class="section-title bg-white text-center text-primary px-3">Sections</h6>
+        </div>
+        <br />
+
+    }
+    @*Logged Student And Private Course Start*@
+    else if (loggedUser.Role == Poodle_E_Learning_Platform.Models.UserRole.Student && currentCourse.Visibility == Poodle_E_Learning_Platform.Models.CourseVisibility.Private)
+    {
+        if (!loggedUser.UserCourses.Contains(userCourse))
+        {
+            <h2>You can't enroll yourself in this course !</h2>
+        }
+        else
+        {
+
+            <div class="text-center py-12 px-6 mt-12">
+                <h6 class="section-title bg-white text-center text-primary px-3">Title</h6>
+                <h1 class="font-display font-bold text-5xl mb-6">@currentCourse.Title</h1>
+                <h6 class="section-title bg-white text-center text-primary px-3">Description</h6>
+                <p style="font:xx-large" class="max-w-lg mx-auto">@currentCourse.Description</p>
+                <h6 class="section-title bg-white text-center text-primary px-3">Sections</h6>
+            </div>
+        }
+    }
+    @*Logged Student And Public Course Start*@
+    else if (loggedUser.Role == Poodle_E_Learning_Platform.Models.UserRole.Student && currentCourse.Visibility == Poodle_E_Learning_Platform.Models.CourseVisibility.Public)
+    {
+        var courseToAdd = this.courseService.GetById(currentCourse.Id, loggedUser.Email);
+
+        <div class="text-center py-12 px-6 mt-12">
+            <h6 class="section-title bg-white text-center text-primary px-3">Title</h6>
+            <h1 class="font-display font-bold text-5xl mb-6">@currentCourse.Title</h1>
+            <h6 class="section-title bg-white text-center text-primary px-3">Description</h6>
+            <p style="font:xx-large" class="max-w-lg mx-auto">@currentCourse.Description</p>
+            <h6 class="section-title bg-white text-center text-primary px-3">Sections</h6>
+        </div>
+    }
+
+    <!-- Sections Start -->
+    @foreach (var section in sectionList)
+    {
+        var title = section.Title;
+        var sectionId = section.Id;
+
+
+        if (loggedUser.Role == UserRole.Student)
+        {
+            if (section.StartDate < DateTime.Now && section.EndDate > DateTime.Now)
+            {
+                <div style="margin-left: 120px; margin-right: 120px" class="list-group">
+                    <h3 style="display: inline-block"><a class="list-group-item list-group-item-action mb-2"> @title</a></h3>
+                </div>
+            }
+            else
+            {
+                <div style="margin-left: 120px; margin-right: 120px" class="list-group">
+                    <h3 style="display: inline-block"><a class="list-group-item list-group-item-action mb-2" asp-action="Section" asp-controller="Courses" asp-route-sectionId="@sectionId" asp-route-courseId="@courseId"> @title</a></h3>
+                </div>
+            }
+        }
+        else
+        {
+            <div style="margin-left: 120px; margin-right: 120px" class="list-group">
+                <h3 style="display: inline-block"><a class="list-group-item list-group-item-action mb-2" asp-action="Section" asp-controller="Courses" asp-route-sectionId="@sectionId" asp-route-courseId="@courseId"> @title</a></h3>
+            </div>
+        }
+    }
+    @if (loggedUser.Role == UserRole.Teacher)
+    {
+        <!-- Create Section and Student List Button Start -->
+        <a  asp-action="Create" asp-controller="Sections" asp-route-courseId="@courseId" style="margin-left: 120px; color: white" class="btn btn-success btn-outline-dark py-md-3 px-md-5 align-content-end animated slideInRight">Create Section</a>
+        <a  asp-controller="Courses" asp-action="Students" asp-route-courseId="@courseId" style="color: white" class="btn btn-success btn-outline-dark py-md-3 px-md-5 align-content-end animated slideInRight">Student List</a>
+    }
+    <!-- Edit Button Start -->
+    @if (loggedUser != null && loggedUser.Role == UserRole.Teacher)
+    {
+
+        <div style="display: flex; justify-content: flex-end; margin-top: 50px; margin-right: 120px">
+            <a asp-action="Edit" asp-controller="Courses" asp-route-courseId="@courseId" style="color: white" class="btn btn-dark btn-outline-dark py-md-3 px-md-5 align-content-end animated slideInRight">Edit Course</a>
+        </div>
+    }
+}

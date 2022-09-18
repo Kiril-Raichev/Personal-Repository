@@ -1,0 +1,73 @@
+﻿@inject Poodle_E_Learning_Platform.Helpers.AuthorizationHelper authorizationHelper
+@inject Poodle_E_Learning_Platform.Repositories.IUsersRepository usersRepository
+@inject Poodle_E_Learning_Platform.Repositories.ICourseRepository courseRepository
+@inject Poodle_E_Learning_Platform.Repositories.IUserCourseRepository userCourseRepository
+@inject Poodle_E_Learning_Platform.Services.ICourseService courseService
+@using Poodle_E_Learning_Platform.Models;
+@model Poodle_E_Learning_Platform.Web.Models.CourseEditViewModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+@{
+
+    var loggedUser = usersRepository.GetByEmail(this.authorizationHelper.CurrentUser);
+    var title = Model.Title;
+}
+
+@if (loggedUser == null || loggedUser.Role != UserRole.Teacher)
+{
+    <partial name="../Shared/Error.cshtml" />
+}
+else
+{
+
+    <body>
+        <div id="login">
+            <h3 class="text-center text-white pt-5">Login form</h3>
+            <div class="container">
+                <div id="login-row" class="row justify-content-center align-items-center">
+                    <div id="login-column" class="col-md-6">
+                        <div id="login-box" class="col-md-12">
+                            <h3 class="text-center text-info">Edit Course</h3>
+                            <form asp-controller="Courses" asp-action="Edit" method="post">
+                                <input asp-for="courseId" hidden />
+
+                                <div class="form-group">
+                                    <label asp-for="Title"></label>
+                                    <input type="text" asp-for="Title" class="form-control" />
+                                    <span asp-validation-for="Title" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="Description"></label>
+                                    <input type="text" asp-for="Description" class="form-control" />
+                                    <span asp-validation-for="Description" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="Duration"></label>
+                                    <input type="number" asp-for="Duration" class="form-control" />
+                                    <span asp-validation-for="Duration" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="Visibility"></label>
+                                    <input type="text" asp-for="Visibility" class="form-control" />
+                                    <span asp-validation-for="Visibility" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="ImgSource"></label>
+                                    <input type="text" asp-for="ImgSource" class="form-control" />
+                                    <span asp-validation-for="ImgSource" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+
+                                    <input type="submit" value="Save Changes"  class="btn-primary" />
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+
+}

@@ -1,0 +1,38 @@
+﻿@using Poodle_E_Learning_Platform.Models;
+@inject Poodle_E_Learning_Platform.Helpers.AuthorizationHelper authorizationHelper
+@inject Poodle_E_Learning_Platform.Repositories.IUsersRepository usersRepository
+@inject Poodle_E_Learning_Platform.Services.ICourseService courseService
+@model Poodle_E_Learning_Platform.Models.Section
+<!-- Sections Start -->
+@{
+    var loggedUser = usersRepository.GetByEmail(this.authorizationHelper.CurrentUser);
+    var allCourses = this.courseService.GetAll();
+    var course = allCourses.Where(c => c.Sections.Contains(Model)).FirstOrDefault();
+    var currentCourse = allCourses.Where(x => x.Sections.Contains(Model)).FirstOrDefault();
+
+    foreach (var section in currentCourse.Sections)
+    {
+        Model.sectionList.Add(section);
+    }
+}
+@*//Check also if the user has the course if he tries to go in from URL*@
+@if (loggedUser == null)
+{
+    <partial name="../Shared/Error.cshtml" />
+}
+else
+{
+    <div class="text-center py-12 px-6 mt-12">
+        <h6 class="section-title bg-white text-center text-primary px-3">Title</h6>
+        <h1 class="font-display font-bold text-5xl mb-6">@Model.Title</h1>
+        <h6 class="section-title bg-white text-center text-primary px-3">Content</h6>
+        <p style="font:xx-large" class="max-w-lg mx-auto">@Model.Content</p>
+    </div>
+
+    @if (loggedUser != null && loggedUser.Role == UserRole.Teacher)
+    {
+        <!-- Delete Button Start-->
+        <a   asp-action="Edit" asp-controller="Sections" asp-route-courseId="@course.Id" asp-route-sectionId="@Model.Id" style="margin-left: 120px;color: white" class="btn btn-dark btn-outline-dark py-md-3 px-md-5 align-content-end animated slideInRight">Edit Section</a>
+        <a  asp-action="Delete" asp-controller="Sections" asp-route-sectionId="@Model.Id" asp-route-courseId="@course.Id" style="color: white" class="btn btn-danger btn-outline-dark py-md-3 px-md-5 align-content-end animated slideInRight">Delete Section</a>
+    }
+}

@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Text.Json;
 
 namespace Poodle_E_Learning_Platform.Models
 {
@@ -8,14 +8,17 @@ namespace Poodle_E_Learning_Platform.Models
     {
         [Key]
         public int Id { get; set; }
-
         public string Title { get; set; }
         public string Description { get; set; }
+        public int Duration { get; set; }
+        public string ImgSource { get; set; }
         public CourseVisibility Visibility { get; set; }
-        public List<Section> Sections { get; set; } = new List<Section>();
+        public string CreatedBy { get; set; }
 
-        //TODO for manually filtering courses
-        //public int CourseID { get; set; }
+        public virtual ICollection<Section> Sections { get; set; } = new HashSet<Section>();
 
+        public virtual ICollection<UserCourse> Users { get; set; } = new HashSet<UserCourse>();
+
+        
     }
 }

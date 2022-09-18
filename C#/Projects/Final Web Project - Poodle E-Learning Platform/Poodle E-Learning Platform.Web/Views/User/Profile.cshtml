@@ -1,0 +1,75 @@
+﻿@inject Poodle_E_Learning_Platform.Helpers.AuthorizationHelper authorizationHelper
+@inject Poodle_E_Learning_Platform.Repositories.IUsersRepository usersRepository
+@inject Poodle_E_Learning_Platform.Repositories.ICourseRepository courseRepository
+@using Poodle_E_Learning_Platform.Models;
+@model Poodle_E_Learning_Platform.Models.User
+
+@{
+    var loggedUser = this.usersRepository.GetByEmail(authorizationHelper.CurrentUser);
+    var allCourses = this.courseRepository.GetAll();
+}
+
+@if (loggedUser == null)
+{
+    <partial name="../Shared/Error.cshtml" />
+}
+else
+{
+    <div class="row py-5 px-4">
+        <div class="col-md-5 mx-auto">
+            <!-- Profile widget -->
+            <div class="bg-white shadow rounded overflow-hidden">
+                <div class="px-4 pt-0 pb-4 cover">
+                    <div class="media align-items-end profile-head">
+                        <div class="profile mr-3">
+                            <img src="@loggedUser.Photo" alt="..." width="130" class="rounded mb-2 img-thumbnail">
+                            <a asp-action="Edit" asp-controller="User" asp-route-userId="@loggedUser.Id" class="btn btn-outline-dark btn-sm btn-block">Edit profile</a>
+                        </div>
+                        <div class="media-body mb-5 text-white">
+                            <h4 class="mt-0 mb-0">Name: @loggedUser.FirstName @loggedUser.LastName</h4> class="media-body mb-5 text-white">
+                            <h4 class="mt-0 mb-0">Email: @loggedUser.Email</h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="px-4 py-3">
+                    <h5 class="mb-0">About</h5>
+                    <div class="p-4 rounded shadow-sm bg-light">
+                        <p class="font-italic mb-0">@loggedUser.Role</p>
+                    </div>
+                </div>
+                <div class="py-4 px-4">
+                    @if (loggedUser.Role == UserRole.Student)
+                    {
+                        <h5 class="mb-0">Your Courses:</h5>
+                        <div>
+                            @foreach (var course in loggedUser.UserCourses)
+                            {
+                                <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
+
+                                    <h4><a class="border-bottom" style="color:dimgrey" href="../courses/details/@course.Course.Id">@course.Course.Title</a></h4>
+                                </div>
+                            }
+                        </div>
+                    }
+                    else
+                    {
+                        <h5 class="mb-0">Courses You Teach:</h5>
+                        <div>
+                            @foreach (var course in allCourses)
+                            {
+                                string created = $"{loggedUser.FirstName} {loggedUser.LastName}";
+                                if (course.CreatedBy == created)
+                                {
+                                    <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
+
+                                        <h4><a class="border-bottom" style="color:dimgrey" href="../courses/details/@course.Id">@course.Title</a></h4>
+                                    </div>
+                                }
+                            }
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+}

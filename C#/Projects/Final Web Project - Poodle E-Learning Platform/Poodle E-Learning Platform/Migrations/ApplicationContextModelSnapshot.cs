@@ -26,23 +26,59 @@ namespace Poodle_E_Learning_Platform.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Duration")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ImgSource")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Title")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("UserId")
-                        .HasColumnType("int");
 
                     b.Property<int>("Visibility")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UserId");
-
                     b.ToTable("Courses");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CreatedBy = "Ivan Ivanov",
+                            Description = "The best course in here, trust",
+                            Duration = 110,
+                            ImgSource = "~/img/test1.jpg",
+                            Title = "Course no1",
+                            Visibility = 0
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CreatedBy = "Ivan Ivanov",
+                            Description = "The second best course in here, trust",
+                            Duration = 155,
+                            ImgSource = "~/img/test2.jpg",
+                            Title = "Course no2",
+                            Visibility = 1
+                        },
+                        new
+                        {
+                            Id = 3,
+                            CreatedBy = "Ivan Ivanov",
+                            Description = "The third best course in here, trust",
+                            Duration = 198,
+                            ImgSource = "https://st.depositphotos.com/1075946/1820/i/450/depositphotos_18206843-stock-photo-group-of-young-in-training.jpg",
+                            Title = "Course no3",
+                            Visibility = 0
+                        });
                 });
 
             modelBuilder.Entity("Poodle_E_Learning_Platform.Models.Section", b =>
@@ -55,11 +91,23 @@ namespace Poodle_E_Learning_Platform.Migrations
                     b.Property<string>("Content")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("CourseId")
+                    b.Property<int>("CourseId")
                         .HasColumnType("int");
+
+                    b.Property<DateTime?>("EndDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("LastEdit")
+                        .HasColumnType("datetime2");
 
                     b.Property<int>("Order")
                         .HasColumnType("int");
+
+                    b.Property<int?>("SectionId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("StartDate")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Title")
                         .HasColumnType("nvarchar(max)");
@@ -68,7 +116,38 @@ namespace Poodle_E_Learning_Platform.Migrations
 
                     b.HasIndex("CourseId");
 
+                    b.HasIndex("SectionId");
+
                     b.ToTable("Sections");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Content = "Description of the first test section",
+                            CourseId = 1,
+                            LastEdit = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Order = 1,
+                            Title = "First test section"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Content = "Description of the second test section",
+                            CourseId = 1,
+                            LastEdit = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Order = 2,
+                            Title = "Second test section"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Content = "Description of the third test section",
+                            CourseId = 1,
+                            LastEdit = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Order = 3,
+                            Title = "Third test section"
+                        });
                 });
 
             modelBuilder.Entity("Poodle_E_Learning_Platform.Models.User", b =>
@@ -90,6 +169,9 @@ namespace Poodle_E_Learning_Platform.Migrations
                     b.Property<string>("Password")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Photo")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("Role")
                         .HasColumnType("int");
 
@@ -105,32 +187,96 @@ namespace Poodle_E_Learning_Platform.Migrations
                             FirstName = "Ivan",
                             LastName = "Ivanov",
                             Password = "123",
+                            Photo = "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fstatic.photocdn.pt%2Fimages%2Farticles%2F2019%2F08%2F07%2Fimages%2Farticles%2F2019%2F07%2F31%2Fbest_linkedin_photos.jpg&f=1&nofb=1",
                             Role = 0
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Email = "Georgi_georgiev@abv.bg",
+                            FirstName = "Georgi",
+                            LastName = "Geirgiev",
+                            Password = "1223",
+                            Photo = "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse3.mm.bing.net%2Fth%3Fid%3DOIP.BxO--7Fr7JssN9Tj9wII_QHaLG%26pid%3DApi&f=1",
+                            Role = 1
                         });
                 });
 
-            modelBuilder.Entity("Poodle_E_Learning_Platform.Models.Course", b =>
+            modelBuilder.Entity("Poodle_E_Learning_Platform.Models.UserCourse", b =>
                 {
-                    b.HasOne("Poodle_E_Learning_Platform.Models.User", null)
-                        .WithMany("Courses")
-                        .HasForeignKey("UserId");
+                    b.Property<int>("CourseId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Id")
+                        .HasColumnType("int");
+
+                    b.HasKey("CourseId", "UserId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("UserCourse");
+
+                    b.HasData(
+                        new
+                        {
+                            CourseId = 2,
+                            UserId = 2,
+                            Id = 0
+                        });
                 });
 
             modelBuilder.Entity("Poodle_E_Learning_Platform.Models.Section", b =>
                 {
-                    b.HasOne("Poodle_E_Learning_Platform.Models.Course", null)
+                    b.HasOne("Poodle_E_Learning_Platform.Models.Course", "Course")
                         .WithMany("Sections")
-                        .HasForeignKey("CourseId");
+                        .HasForeignKey("CourseId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Poodle_E_Learning_Platform.Models.Section", null)
+                        .WithMany("sectionList")
+                        .HasForeignKey("SectionId");
+
+                    b.Navigation("Course");
+                });
+
+            modelBuilder.Entity("Poodle_E_Learning_Platform.Models.UserCourse", b =>
+                {
+                    b.HasOne("Poodle_E_Learning_Platform.Models.Course", "Course")
+                        .WithMany("Users")
+                        .HasForeignKey("CourseId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Poodle_E_Learning_Platform.Models.User", "User")
+                        .WithMany("UserCourses")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Course");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Poodle_E_Learning_Platform.Models.Course", b =>
                 {
                     b.Navigation("Sections");
+
+                    b.Navigation("Users");
+                });
+
+            modelBuilder.Entity("Poodle_E_Learning_Platform.Models.Section", b =>
+                {
+                    b.Navigation("sectionList");
                 });
 
             modelBuilder.Entity("Poodle_E_Learning_Platform.Models.User", b =>
                 {
-                    b.Navigation("Courses");
+                    b.Navigation("UserCourses");
                 });
 #pragma warning restore 612, 618
         }

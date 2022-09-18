@@ -1,0 +1,32 @@
+﻿@inject Poodle_E_Learning_Platform.Helpers.AuthorizationHelper authorizationHelper
+@inject Poodle_E_Learning_Platform.Repositories.IUsersRepository usersRepository
+@inject Poodle_E_Learning_Platform.Repositories.IUserCourseRepository usersCourseRepository
+@using Poodle_E_Learning_Platform.Models;
+@model Poodle_E_Learning_Platform.Models.Course
+@{
+    var loggedUser = usersRepository.GetByEmail(this.authorizationHelper.CurrentUser);
+    var course = Model;
+    var userCourse = this.usersCourseRepository.GetByTeacher(course.Id);
+}
+
+@if (loggedUser == null || loggedUser.Role != UserRole.Teacher)
+{
+    <partial name="../Shared/Error.cshtml" />
+}
+else
+{
+    <div class="text-center py-12 px-6 mt-12">
+        <h6 class="section-title bg-white text-center text-primary px-3">Enrolled Students:</h6>
+    </div>
+    foreach (var student in userCourse)
+    {
+        <div style="margin-left: 120px; margin-right: 120px" class="list-group">
+            <h3 style="display: inline-block"><a class="list-group-item list-group-item-action mb-2"> @student.User.Email</a></h3>
+        </div>
+    }
+    if (Model.Visibility == CourseVisibility.Private)
+    {
+<a asp-action="Enroll" asp-controller="Courses" asp-route-courseId="@course.Id" style=" margin-left: 120px;color: white" class="btn btn-dark btn-outline-dark py-md-3 px-md-5 align-content-end animated slideInRight">Enroll New Student</a>
+    }
+
+}

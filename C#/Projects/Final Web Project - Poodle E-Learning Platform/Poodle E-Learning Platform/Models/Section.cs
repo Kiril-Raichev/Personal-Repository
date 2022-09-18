@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Text.Json;
 
 namespace Poodle_E_Learning_Platform.Models
 {
@@ -12,8 +12,14 @@ namespace Poodle_E_Learning_Platform.Models
         public string Content { get; set; }
         public int Order { get; set; }
 
-        //TODO restricted by date or specific users/section
-        //TODO configure to be opened as a new page or be embedded on the main course page
+        public DateTime LastEdit { get; set; }
+        public DateTime? StartDate { get; set; }
+        public DateTime? EndDate { get; set; }
+
+        public List<Section> sectionList { get; set; } = new List<Section>();
+        public int CourseId { get; set; }
+        public Course Course { get; set; }
+
 
 
     }

@@ -1,0 +1,68 @@
+﻿@inject Poodle_E_Learning_Platform.Helpers.AuthorizationHelper authorizationHelper
+@inject Poodle_E_Learning_Platform.Repositories.IUsersRepository usersRepository
+@inject Poodle_E_Learning_Platform.Repositories.ICourseRepository courseRepository
+@inject Poodle_E_Learning_Platform.Repositories.IUserCourseRepository userCourseRepository
+@inject Poodle_E_Learning_Platform.Services.ICourseService courseService
+@using Poodle_E_Learning_Platform.Models;
+@model Poodle_E_Learning_Platform.Web.Models.SectionEditViewModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+@{
+
+    var loggedUser = usersRepository.GetByEmail(this.authorizationHelper.CurrentUser);
+    var title = Model.Title;
+}
+
+@if (loggedUser == null || loggedUser.Role != UserRole.Teacher)
+{
+    <partial name="../Shared/Error.cshtml" />
+}
+else
+{
+    <body>
+        <div id="login">
+            <h3 class="text-center text-white pt-5">Login form</h3>
+            <div class="container">
+                <div id="login-row" class="row justify-content-center align-items-center">
+                    <div id="login-column" class="col-md-6">
+                        <div id="login-box" class="col-md-12">
+                            <h3 class="text-center text-info">Edit Section</h3>
+                            <form asp-controller="Sections" asp-action="Edit" method="post">
+                                <input asp-for="courseId" hidden />
+                                <input asp-for="sectionId" hidden />
+                                <div class="form-group">
+                                    <label asp-for="Title"></label>
+                                    <input type="text" asp-for="Title" class="form-control" />
+                                    <span asp-validation-for="Title" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="Content"></label>
+                                    <input type="text" asp-for="Content" class="form-control" />
+                                    <span asp-validation-for="Content" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="StartDate"></label>
+                                    <input type="datetime" asp-for="StartDate" class="form-control" />
+                                    <span asp-validation-for="StartDate" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="EndDate"></label>
+                                    <input type="datetime" asp-for="EndDate" class="form-control" />
+                                    <span asp-validation-for="EndDate" class="text-danger"></span>
+                                </div>
+
+                                <div class="form-group">
+
+                                    <input type="submit" value="Save" onclick="" class="btn-primary" />
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+
+}
