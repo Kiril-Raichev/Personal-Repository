@@ -202,13 +202,13 @@
                             }
                             @if (currentCourse.Duration > 60)
                             {
-                                duration = $"{currentCourse.Duration / 60} Hrs {currentCourse.Duration % 60}";
+                                duration = $"{currentCourse.Duration / 60} Hrs {currentCourse.Duration % 60} Min";
                             }
                             else
                             {
                                 duration = $"{currentCourse.Duration} Min";
                             }
-                            <small class="flex-fill text-center border-end py-2"><i class="fa fa-clock text-primary me-2"></i>@duration Hrs</small>
+                            <small class="flex-fill text-center border-end py-2"><i class="fa fa-clock text-primary me-2"></i>@duration</small>
                             <small class="flex-fill text-center py-2"><i class="bi bi-people-fill text-primary me-2"></i>@currentCourse.Users.Count Students</small>
                         </div>
                     </div>
