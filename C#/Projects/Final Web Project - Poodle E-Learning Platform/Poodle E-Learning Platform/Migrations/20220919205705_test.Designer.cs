@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Poodle_E_Learning_Platform.Data;
 
 namespace Poodle_E_Learning_Platform.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    partial class ApplicationContextModelSnapshot : ModelSnapshot
+    [Migration("20220919205705_test")]
+    partial class test
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -53,10 +55,10 @@ namespace Poodle_E_Learning_Platform.Migrations
                         {
                             Id = 1,
                             CreatedBy = "Ivan Ivanov",
-                            Description = "Interested in programming, but you have no idea where to start? Try out this free short intro course to see if the C# language is for you!",
-                            Duration = 30,
-                            ImgSource = "https://st.depositphotos.com/1075946/1820/i/450/depositphotos_18206843-stock-photo-group-of-young-in-training.jpg",
-                            Title = "C# Programming Basics",
+                            Description = "If your goal is to get in shape and fit then look no more, with a few fast sessions you will have all the information you need to complete your goals!",
+                            Duration = 110,
+                            ImgSource = "~/img/test1.jpg",
+                            Title = "Physical Training",
                             Visibility = 0
                         },
                         new
@@ -73,10 +75,10 @@ namespace Poodle_E_Learning_Platform.Migrations
                         {
                             Id = 3,
                             CreatedBy = "Ivan Ivanov",
-                            Description = "If your goal is to get in shape and fit then look no more, with a few fast sessions you will have all the information you need to complete your goals!",
-                            Duration = 110,
-                            ImgSource = "~/img/test1.jpg",
-                            Title = "Physical Training",
+                            Description = "Interested in programming, but you have no idea where to start? Try out this free short intro course to see if the C# language is for you!",
+                            Duration = 30,
+                            ImgSource = "https://st.depositphotos.com/1075946/1820/i/450/depositphotos_18206843-stock-photo-group-of-young-in-training.jpg",
+                            Title = "C# Programming Basics",
                             Visibility = 0
                         });
                 });
