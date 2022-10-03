@@ -1,0 +1,36 @@
+﻿@inject Project.Web.Helpers.AuthorizationHelper authorizationHelper
+@inject Project.API.Repositories.Interfaces.IUserRepository userRepository
+@inject Project.API.Repositories.Interfaces.IArticleRepository articleRepository
+@using Project.API.Models.Enums
+
+@using Project.API.Models;
+
+@{
+
+    var loggedUser = userRepository.GetByEmail(this.authorizationHelper.CurrentUser);
+    var currentArticle = articleRepository.GetById(this.Model.Id);
+}
+
+<!-- Details Start -->
+
+<br />
+<div class="text-center py-12 px-6 mt-12">
+    <h6 class="section-title bg-white text-center text-primary px-3">Title</h6>
+    <h1 class="font-display font-bold text-5xl mb-6">@currentArticle.Title</h1>
+    <h6 class="section-title bg-white text-center text-primary px-3">Description</h6>
+    <p style="font:xx-large" class="max-w-lg mx-auto">@currentArticle.Body</p>
+    <h6 class="section-title bg-white text-center text-primary px-3">Job Title</h6>
+    <p style="font:xx-large" class="max-w-lg mx-auto">@currentArticle.Job</p>
+    <h6 class="section-title bg-white text-center text-primary px-3">Position</h6>
+    <p style="font:xx-large" class="max-w-lg mx-auto">@currentArticle.Position</p>
+    <h6 class="section-title bg-white text-center text-primary px-3">Poster</h6>
+    <p style="font:xx-large" class="max-w-lg mx-auto">@currentArticle.CreatedBy</p>
+</div>
+<br />
+
+@if (loggedUser != null && loggedUser.Role ==UserRole.Admin)
+{
+    <!-- Edit/Delete -->
+    <a asp-controller="Article" asp-action="Edit" asp-route-articleId="@currentArticle.Id" style="margin-left: 120px; color: white" class="btn btn-success btn-outline-dark py-md-3 px-md-5 align-content-end animated slideInRight">Edit Article</a>
+    <a asp-controller="Article" asp-action="Delete" asp-route-id="@currentArticle.Id" style="color: white" class="btn btn-danger btn-outline-dark py-md-3 px-md-5 align-content-end animated slideInRight">Delete Article</a>
+}

@@ -1,0 +1,117 @@
+﻿
+@inject Project.Web.Helpers.AuthorizationHelper authorizationHelper
+@inject Project.API.Repositories.Interfaces.IUserRepository usersRepository
+@{
+    if (authorizationHelper.CurrentUser != null)
+    {
+        var loggedUser = this.usersRepository.GetByEmail(this.authorizationHelper.CurrentUser);
+    }
+    ViewData["Title"] = "Home";
+}
+<!-- Service Start -->
+    <div class="container align-items-center">
+        <div class="row g-4">
+            <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.1s">
+                <div class="service-item text-center pt-3">
+                    <div class="p-4">
+                        <i class="fa fa-3x fa-globe text-primary mb-4"></i>
+                        <h5 class="mb-3">Many job offers</h5>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.3s">
+                <div class="service-item text-center pt-3">
+                    <div class="p-4">
+                        <i class="fa fa-3x fa-globe text-primary mb-4"></i>
+                        <h5 class="mb-3">Instant feedback</h5>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.5s">
+                <div class="service-item text-center pt-3">
+                    <div class="p-4">
+                        <i class="fa fa-3x fa-globe text-primary mb-4"></i>
+                        <h5 class="mb-3">Connection with our business partners</h5>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.7s">
+                <div class="service-item text-center pt-3">
+                    <div class="p-4">
+                        <i class="fa fa-3x fa-globe text-primary mb-4"></i>
+                        <h5 class="mb-3">Fast customer support</h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<!-- Service End -->
+<!-- About Start -->
+<div style="margin-left: 480px" class="container">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.3s">
+                <h6 class="section-title bg-white text-start text-primary pe-3">About Us</h6>
+                <h1 class="mb-4">Welcome to Jobs</h1>
+                <p class="mb-4">Welcome to your new best friend when searching for employment - Jobs.</p>
+                <p class="mb-4">Trying to find a job but dont know how? Register now. You get access to:</p>
+                <div class="row gy-2 gx-4 mb-4">
+                    <div class="col-sm-6">
+                        <p class="mb-0"><i class="fa fa-arrow-right text-primary me-2"></i>Catalog full of jobs</p>
+                    </div>
+                    <div class="col-sm-6">
+                        <p class="mb-0"><i class="fa fa-arrow-right text-primary me-2"></i>Connection to our partners</p>
+                    </div>
+                    <div class="col-sm-6">
+                        <p class="mb-0"><i class="fa fa-arrow-right text-primary me-2"></i>Guaranteed satisfaction</p>
+                    </div>
+                    <div class="col-sm-6">
+                        <p class="mb-0"><i class="fa fa-arrow-right text-primary me-2"></i>Instant Feedback</p>
+                    </div>
+                </div>
+                <a class="btn btn-primary py-3 px-5 mt-2" href="@Url.Action("Register","Authentication")">Join Now</a>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- About End -->
+<!-- Testimonial Start -->
+<div class="container-xxl py-5 wow fadeInUp" data-wow-delay="0.1s">
+    <div class="container">
+        <div class="text-center">
+            <h6 class="section-title bg-white text-center text-primary px-3">Satisfied Users</h6>
+            <h1 class="mb-5">Our Users Say!</h1>
+        </div>
+        <div class="owl-carousel testimonial-carousel position-relative">
+            <div class="testimonial-item text-center">
+                <img class="border rounded-circle p-2 mx-auto mb-3" src="img/testimonial-1.jpg" style="width: 80px; height: 80px;">
+                <h5 class="mb-0">Jessica</h5>
+                <div class="testimonial-text bg-light text-center p-4">
+                    <p class="mb-0">The best platform I have ever used. It helped me find a job in days.</p>
+                </div>
+            </div>
+            <div class="testimonial-item text-center">
+                <img class="border rounded-circle p-2 mx-auto mb-3" src="img/testimonial-2.jpg" style="width: 80px; height: 80px;">
+                <h5 class="mb-0">Andrew</h5>
+                <div class="testimonial-text bg-light text-center p-4">
+                    <p class="mb-0">Great customer service.</p>
+                </div>
+            </div>
+            <div class="testimonial-item text-center">
+                <img class="border rounded-circle p-2 mx-auto mb-3" src="img/testimonial-3.jpg" style="width: 80px; height: 80px;">
+                <h5 class="mb-0">Mike</h5>
+                <div class="testimonial-text bg-light text-center p-4">
+                    <p class="mb-0">You will not regret trying it out.</p>
+                </div>
+            </div>
+            <div class="testimonial-item text-center">
+                <img class="border rounded-circle p-2 mx-auto mb-3" src="img/testimonial-4.jpg" style="width: 80px; height: 80px;">
+                <h5 class="mb-0">Steffany</h5>
+                <div class="testimonial-text bg-light text-center p-4">
+                    <p class="mb-0">I loved the UI design.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Testimonial End -->

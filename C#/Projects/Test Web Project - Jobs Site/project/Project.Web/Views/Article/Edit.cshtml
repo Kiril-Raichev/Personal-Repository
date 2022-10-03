@@ -1,0 +1,103 @@
+﻿@inject Project.Web.Helpers.AuthorizationHelper authorizationHelper
+@inject Project.API.Repositories.Interfaces.IUserRepository userRepository
+@inject Project.API.Repositories.Interfaces.IArticleRepository articleRepository
+@using Project.API.Models.Enums;
+@model Project.Web.Models.ArticleEditViewModel
+@{
+    ViewData["Title"] = "Edit";
+}
+@{
+
+    var loggedUser = userRepository.GetByEmail(this.authorizationHelper.CurrentUser);
+    var title = Model.Title;
+}
+
+@if (loggedUser == null || loggedUser.Role != UserRole.Admin)
+{
+    <partial name="../Shared/Error.cshtml" />
+}
+else
+{
+    <body>
+        <div id="login">
+            <h3 class="text-center text-white pt-5">Login form</h3>
+            <div class="container">
+                <div id="login-row" class="row justify-content-center align-items-center">
+                    <div id="login-column" class="col-md-6">
+                        <div id="login-box" class="col-md-12">
+                            <h3 class="text-center text-info">Edit Course</h3>
+                            <form asp-controller="Article" asp-action="Edit" method="post">
+                                <input asp-for="articleId" hidden />
+
+                                <div class="form-group">
+                                    <label asp-for="Title"></label>
+                                    <input type="text" asp-for="Title" class="form-control" />
+                                    <span asp-validation-for="Title" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="Body"></label>
+                                    <input type="text" asp-for="Body" class="form-control" />
+                                    <span asp-validation-for="Body" class="text-danger"></span>
+                                </div>
+                                <div>
+                                    <fieldset>
+                                        Job<br />
+                                        <select asp-for="Job">
+
+                                            <option value=""></option>
+
+                                            <option value=".NET">.Net</option>
+
+                                            <option value="Java">Java</option>
+
+                                            <option value="Python">Python</option>
+
+                                            <option value="JavaScript">JavaScript</option>
+
+                                        </select>
+                                    </fieldset>
+                                </div>
+                                <div>
+                                    <fieldset>
+                                        Position<br />
+                                        <select asp-for="Position">
+
+                                            <option value=""></option>
+
+                                            <option value="Intern">Intern</option>
+
+                                            <option value="Junior">Junior</option>
+
+                                            <option value="Senior">Senior</option>
+
+                                        </select>
+                                    </fieldset>
+                                </div>
+                                <div>
+                                    <fieldset>
+                                        Visibility<br />
+                                        <select asp-for="Visibility">
+
+                                            <option value=""></option>
+
+                                            <option value="@Visibility.Guest">Guest</option>
+
+                                            <option value="@Visibility.Registered">Registered</option>
+
+                                        </select>
+                                    </fieldset>
+                                </div>
+                                <br />
+                                <div class="form-group">
+
+                                    <input type="submit" value="Save Changes" class="btn-primary" />
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+
+}
