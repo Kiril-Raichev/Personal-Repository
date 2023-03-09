@@ -1,0 +1,32 @@
+﻿@model EF_Core.ViewModels.OrderCreateAndEditViewModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<form asp-action="Edit" method="post">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="border p-3 mt-4">
+        <div class="row pb-2">
+            <h2 class="text-primary pl-3">Edit Order</h2>
+            <hr />
+        </div>
+        <div class="mb-3">
+            <label asp-for="OrderDate"></label>
+            <input asp-for="OrderDate" class="form-control" />
+            <span asp-validation-for="OrderDate" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="CustomerId"></label>
+            <input asp-for="CustomerId" class="form-control" />
+            <span asp-validation-for="CustomerId" class="text-danger"></span>
+        </div>
+                <div class="mb-3">
+            <label asp-for="SuperMarketId"></label>
+            <input asp-for="SuperMarketId" class="form-control" />
+            <span asp-validation-for="SuperMarketId" class="text-danger"></span>
+        </div>
+        <button type="submit" class="btn btn-primary" style="width:150px">Edit</button>
+        <a asp-controller="Order" asp-action="Index" class="btn btn-secondary" style="width:150px">Back to List</a>
+    </div>
+</form>

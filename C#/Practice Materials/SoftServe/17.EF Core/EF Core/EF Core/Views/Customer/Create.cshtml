@@ -1,0 +1,37 @@
+﻿@model EF_Core.ViewModels.CustomerCreateAndEditViewModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<form asp-action="Create" method="post">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="border p-3 mt-4">
+        <div class="row pb-2">
+            <h2 class="text-primary pl-3">Create Customer</h2>
+            <hr />
+        </div>
+        <div class="mb-3">
+            <label asp-for="FName"></label>
+            <input asp-for="FName" class="form-control" />
+            <span asp-validation-for="FName" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="LName"></label>
+            <input asp-for="LName" class="form-control" />
+            <span asp-validation-for="LName" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="Address"></label>
+            <input asp-for="Address" class="form-control" />
+            <span asp-validation-for="Address" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="Discount"></label>
+            <input asp-for="Discount" class="form-control" />
+            <span asp-validation-for="Discount" class="text-danger"></span>
+        </div>
+        <button type="submit" class="btn btn-primary" style="width:150px">Create</button>
+        <a asp-controller="Customer" asp-action="Index" class="btn btn-secondary" style="width:150px">Back to List</a>
+    </div>
+</form>

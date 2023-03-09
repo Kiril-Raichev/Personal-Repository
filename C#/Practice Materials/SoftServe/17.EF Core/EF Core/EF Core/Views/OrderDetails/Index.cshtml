@@ -1,0 +1,43 @@
+﻿@using BAL.Models;
+@using BAL.Interfaces;
+@inject IProductService productService;
+@model IEnumerable<DAL.Models.OrderDetail>
+
+@{
+    ViewData["Title"] = "View";
+}
+
+<h1>Orders Details</h1>
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ProductId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Quantity);
+            </th>
+        </tr>
+    </thead>
+    <tbody>      
+        @foreach (var item in Model)
+        {
+            var product = productService.GetById(item.ProductId).Result;
+            <tr>
+                <td>
+                    @product.Name
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Quantity)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

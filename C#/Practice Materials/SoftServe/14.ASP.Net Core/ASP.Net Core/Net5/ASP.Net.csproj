@@ -1,0 +1,10 @@
+<Project Sdk="Microsoft.NET.Sdk">  
+  <PropertyGroup>  
+    <TargetFrameworks>net5.0-windows</TargetFrameworks>  
+    <UseWindowsForms>true</UseWindowsForms>  
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>  
+    <AssemblyName>Net5 (ASP.Net5)</AssemblyName>  
+    <RootNamespace>Net5Framework (ASP.Net Core)</RootNamespace>  
+  </PropertyGroup>
+
+</Project>  

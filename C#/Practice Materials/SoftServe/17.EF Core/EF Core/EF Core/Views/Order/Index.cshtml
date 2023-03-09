@@ -1,0 +1,57 @@
+﻿@using BAL.Models;
+@using BAL.Interfaces;
+@inject ICustomerService customerService;
+@inject ISupermarketService supermarketService;
+@model IEnumerable<DAL.Models.Order>
+
+@{
+    ViewData["Title"] = "View";
+}
+
+<h1>Orders</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.OrderDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CustomerId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SuperMarketId)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.OrderDate)
+                </td>
+                <td>
+                    @{
+                        var customer = customerService.GetById(item.CustomerId).Result;
+                    }
+                    @customer.FName @customer.LName
+                </td>
+                <td>
+                    @{
+                        var supermarket = supermarketService.GetById(item.SuperMarketId).Result;
+                    }
+                    @supermarket.Name
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
+                    @Html.ActionLink("Details", "Index","OrderDetails", new { id = item.Id }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

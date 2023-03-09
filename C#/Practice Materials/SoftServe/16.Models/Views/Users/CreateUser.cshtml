@@ -1,0 +1,39 @@
+﻿@model User
+
+@{
+    ViewData["Title"] = "CreateUser";
+}
+
+<h1>CreateUser</h1>
+<form asp-action="CreateUser">
+
+    <h4>Product:</h4>
+    <hr />
+    <div class="row">
+        <div class="col-md-4">
+            <div class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="@Model.Id" class="control-label"></label>
+                <input asp-for="@Model.Id" class="form-control" readonly />
+            </div>
+            <div class="form-group">
+                <label asp-for="@Model.Name" class="control-label"></label>
+                <input asp-for="@Model.Name" class="form-control" readonly />
+            </div>
+            <div class="form-group">
+                <label asp-for="@Model.Email" class="control-label"></label>
+                <input asp-for="@Model.Email" class="form-control" readonly />
+            </div>
+            <div class="form-group">
+                <label asp-for="@Model.Role" class="control-label"></label>
+                <input asp-for="@Model.Role" class="form-control" readonly />
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Save" class="btn btn-primary" />
+    </div>
+</form>
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
