@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\DI.Triangle\DI.Triangle.csproj" />
+    <ProjectReference Include="..\DI.Web\DI.Web.csproj" />
+  </ItemGroup>
+
+</Project>

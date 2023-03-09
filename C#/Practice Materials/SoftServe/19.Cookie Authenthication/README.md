@@ -1,7 +1,4 @@
-# Sprint18.-Authentication-Authorization
-### The structure of the project is the same as in previous two sprints.
-### Please, differentiate access to the resources as described:
-###  
+## Authentication-Authorization
 
 1. All users are allowed to see pages products and supermarkets
 2. Only user with role "admin" can create/edit/delete supermarket

@@ -1,5 +1,5 @@
-## This is an application that allows to view and manage list of products and list of users
-## Please, add the next functionality to the application:
+
+## Add the next functionality to the application:
 ### Validation of products:
 1. **Price**: value should be within boundaries 0 and 100000
 2. **Name**: mandatory field
