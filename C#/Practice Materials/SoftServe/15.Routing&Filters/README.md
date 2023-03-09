@@ -1,4 +1,4 @@
-## Please, update the initial application so that a user will be able to:
+## A user will be able to:
 
 1. View list of products (page available via ../products/index, ../items/index, ../products/ and ../items)
 2. User can click on Edit, View links that lead to corresponding views
