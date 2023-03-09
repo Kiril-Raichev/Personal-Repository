@@ -1,0 +1,57 @@
+﻿html, * {
+    font-family: 'Open Sans', sans-serif;
+}
+
+body {
+    width: 100%;
+    margin: 0 auto;
+}
+
+header {
+    height: 83px;
+    border-bottom: 1px solid #EDEDED;
+}
+
+h1 {
+    font-family: 'Roboto Condensed', sans-serif;
+}
+
+h2 {
+    font-weight: 600;
+    font-size: 22px;
+    line-height: 28px;
+}
+/*#google {
+    position: relative;
+    border-top: 100px solid #EA4335;
+    border-right: 100px solid #4285F4;
+    border-bottom: 100px solid #34A853;
+    border-left: 100px solid #FBBC05;
+    border-radius: 50%;
+    background-color: #FFFFFF;
+    width: auto;
+    height: auto;
+    padding: 0;
+    margin: 10vh auto 0;
+}*/
+h3 {
+    font-family: 'Open Sans';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 19px;
+    text-transform: uppercase;
+}
+
+label, .search-text {
+    font-family: 'Roboto', sans-serif;
+}
+
+ul {
+    list-style: none;
+}
+
+a {
+    text-decoration: none;
+}
+

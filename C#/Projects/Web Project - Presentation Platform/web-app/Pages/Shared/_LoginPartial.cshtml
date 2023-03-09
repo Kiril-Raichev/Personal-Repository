@@ -1,0 +1,15 @@
+﻿@using DAL.EntityModels.User
+@inject SignInManager<SlidesUser> SignInManager
+
+@if (SignInManager.IsSignedIn(User))
+{
+    <a asp-controller="Presentation" asp-action="PresentationIndex" class="nav-item nav-link m-2">My Decks</a>
+    <a asp-controller="Home" asp-action="Profile" class="nav-item nav-link m-2">Profile</a>
+    <a asp-controller="User" asp-action="Logout" class="nav-item nav-link m-2">Log out</a>
+    <a asp-controller="User" asp-action="Subscription" class="btn btn-primary"><span>Upgrade</span></a>
+}
+else
+{
+    <a asp-controller="User" asp-action="Login" class="nav-item nav-link m-2">Log In</a>
+    <a asp-controller="User" asp-action="Register" class="btn btn-primary"><span>Sign up →</span></a>
+}

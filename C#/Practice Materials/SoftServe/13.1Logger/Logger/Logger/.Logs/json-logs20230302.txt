@@ -1,0 +1,4 @@
+{"Timestamp":"2023-03-02T15:58:20.0893805+02:00","Level":"Information","MessageTemplate":"added header: test with value: seriloger"}
+{"Timestamp":"2023-03-02T15:58:31.7412706+02:00","Level":"Information","MessageTemplate":"added header: test with value: seriloger"}
+{"Timestamp":"2023-03-02T16:01:32.2899292+02:00","Level":"Information","MessageTemplate":"added header: test with value: seriloger"}
+{"Timestamp":"2023-03-02T16:02:50.6750239+02:00","Level":"Information","MessageTemplate":"added header: test with value: seriloger"}

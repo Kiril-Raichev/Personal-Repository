@@ -1,4 +1,0 @@
-function result(params) {
-    
-}
-result()
